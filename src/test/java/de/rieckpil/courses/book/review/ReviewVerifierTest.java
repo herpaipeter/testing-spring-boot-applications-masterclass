@@ -61,6 +61,9 @@ class ReviewVerifierTest {
 
   @Test
   void shouldPassWhenReviewIsGood() {
+    String review = "I can totally recommend this book who is interested in learning how to write Java code!";
+    boolean result = reviewVerifier.doesMeetQualityStandards(review);
+    assertTrue(result, "ReviewVerifier did not pass good review");
   }
 
   @Test
