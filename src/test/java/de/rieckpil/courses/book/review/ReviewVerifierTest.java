@@ -29,7 +29,7 @@ class ReviewVerifierTest {
 
   @Test
   void shouldFailWhenReviewContainsSwearWord() {
-    String review = "This book is shit";
+    String review = "This book is shit so I couldn't recommend it to anyone";
     System.out.println("Testing a review");
 
     boolean result = reviewVerifier.doesMeetQualityStandards(review);
