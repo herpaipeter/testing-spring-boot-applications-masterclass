@@ -55,6 +55,8 @@ class ReviewVerifierTest {
 
   @RepeatedTest(5)
   void shouldFailWhenRandomReviewQualityIsBad(@RandomReview String review) {
+    boolean result = reviewVerifier.doesMeetQualityStandards(review);
+    assertFalse(result, "ReviewVerifier did not detect random bad review");
   }
 
   @Test
