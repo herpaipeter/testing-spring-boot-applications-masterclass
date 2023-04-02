@@ -39,11 +39,18 @@ class ReviewVerifierTest {
   @Test
   @DisplayName("Should fail when review contains 'lorem ipsum'")
   void testLoremIpsum() {
+    String review = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
+      "Aliquam vel ipsum at odio consectetur euismod non at nisi. " +
+      "Pellentesque posuere lacus a lorem ultricies dictum. Cras ultrices aliquet ligula vel facilisis. ";
+    boolean result = reviewVerifier.doesMeetQualityStandards(review);
+    assertFalse(result, "ReviewVerifier did not detect lorem ipsum");
   }
 
   @ParameterizedTest
   @CsvFileSource(resources = "/badReview.csv")
   void shouldFailWhenReviewIsOfBadQuality(String review) {
+    boolean result = reviewVerifier.doesMeetQualityStandards(review);
+    assertFalse(result, "ReviewVerifier did not detect bad review");
   }
 
   @RepeatedTest(5)
