@@ -44,6 +44,10 @@ class BookSynchronizationListenerTest {
 
   @Test
   void shouldThrowExceptionWhenProcessingFails() {
+    BookSynchronization bookSynchronization = new BookSynchronization(VALID_ISBN);
+    when(bookRepository.findByIsbn(VALID_ISBN)).thenReturn(null);
+    when(openLibraryApiClient.fetchMetadataForBook(VALID_ISBN)).thenThrow(new RuntimeException("Network timeout"));
+    assertThrows(RuntimeException.class,() -> cut.consumeBookUpdates(bookSynchronization));
   }
 
   @Test
