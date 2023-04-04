@@ -78,5 +78,10 @@ class ReviewVerifierTest {
 
   @Test
   void shouldPassWhenReviewIsGoodAssertJ() {
+    String review = "I can totally recommend this book who is interested in learning how to write Java code!";
+    boolean result = reviewVerifier.doesMeetQualityStandards(review);
+    Assertions.assertThat(result).withFailMessage("ReviewVerifier did not pass good review").isTrue();
+    Assertions.assertThat(List.of(1,2,3,4,5)).hasSizeBetween(1,10);
+    Assertions.assertThat(List.of(1,2,3,4,5)).contains(3).isNotEmpty();
   }
 }
