@@ -28,6 +28,9 @@ class BookSynchronizationListenerTest {
 
   @Test
   void shouldRejectBookWhenIsbnIsMalformed() {
+    BookSynchronization bookSynchronization = new BookSynchronization("12356");
+    cut.consumeBookUpdates(bookSynchronization);
+    verifyNoInteractions(openLibraryApiClient, bookRepository);
   }
 
   @Test
