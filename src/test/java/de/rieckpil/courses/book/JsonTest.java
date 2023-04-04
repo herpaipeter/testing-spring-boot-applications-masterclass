@@ -2,6 +2,7 @@ package de.rieckpil.courses.book;
 
 import com.jayway.jsonpath.JsonPath;
 import org.json.JSONException;
+import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
@@ -17,6 +18,14 @@ public class JsonTest {
 
   @Test
   void testWithJsonPath() {
-    String result = "{\"age\":\"42\", \"name\": \"duke\", \"tags\":[\"java\", \"jdk\"], \"orders\": [42, 42, 16]}";
+    String result = "{\"age\":\"42\", " +
+      "\"name\": \"duke\", " +
+      "\"tags\":[\"java\", \"jdk\"], " +
+      "\"orders\": [42, 42, 16], " +
+      "\"address\": {\"streets\":  [{\"name\": \"Flower str.\"}]}}";
+    Assertions.assertEquals(2, JsonPath.parse(result).read("$.tags.length()", Long.class));
+    Assertions.assertEquals("duke", JsonPath.parse(result).read("$.name", String.class));
+    Assertions.assertEquals("Flower str.", JsonPath.parse(result).read("$.address.streets[0].name", String.class));
+    Assertions.assertEquals(100, JsonPath.parse(result).read("$.orders.sum()", Long.class));
   }
 }
