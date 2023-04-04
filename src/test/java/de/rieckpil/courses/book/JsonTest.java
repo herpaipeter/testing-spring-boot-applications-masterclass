@@ -11,7 +11,8 @@ public class JsonTest {
   @Test
   void testWithJSONAssert() throws JSONException {
     String result = "{\"name\": \"duke\", \"age\":\"42\", \"hobbies\": [\"soccer\", \"java\"]}";
-
+    JSONAssert.assertEquals("{\"name\": \"duke\"}", result,false);
+    JSONAssert.assertEquals("{\"hobbies\": [\"java\", \"soccer\"]}", result, false);
   }
 
   @Test
