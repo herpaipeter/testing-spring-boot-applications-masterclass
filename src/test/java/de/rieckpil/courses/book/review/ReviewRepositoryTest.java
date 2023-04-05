@@ -41,8 +41,20 @@ class ReviewRepositoryTest {
     assertNotNull(entityManager);
     assertNotNull(cut);
     assertNotNull(dataSource);
+    assertNotNull(testEntityManager);
 
     System.out.println(dataSource.getConnection().getMetaData().getDatabaseProductName());
+
+    Review review = new Review();
+    review.setTitle("Review 101");
+    review.setContent("Good review");
+    review.setCreatedAt(LocalDateTime.now());
+    review.setRating(5);
+    review.setBook(null);
+    review.setUser(null);
+    //Review result = cut.save(review);
+    Review result = testEntityManager.persistFlushFind(review);
+    assertNotNull(review.getId());
   }
 
   @Test
