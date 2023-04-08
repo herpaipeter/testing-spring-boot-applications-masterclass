@@ -20,12 +20,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(BookController.class)
+@Import(BookManagementService.class)
 // see https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.7-Release-Notes#migrating-from-websecurityconfigureradapter-to-securityfilterchain
 //@Import(WebSecurityConfig.class)
 class BookControllerTest {
 
   @MockBean
-  private BookManagementService bookManagementService;
+  private BookRepository repository;
 
 //  @Autowired
 //  private MockMvc mockMvc;
