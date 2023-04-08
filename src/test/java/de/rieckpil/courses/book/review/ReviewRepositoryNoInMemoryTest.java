@@ -14,9 +14,12 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import javax.sql.DataSource;
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @DataJpaTest
@@ -47,9 +50,17 @@ class ReviewRepositoryNoInMemoryTest {
   @Test
   @Sql(scripts = "/scripts/INIT_REVIEW_EACH_BOOK.sql")
   void shouldGetTwoReviewStatisticsWhenDatabaseContainsTwoBooksWithReview() {
+    List<ReviewStatistic> result = cut.getReviewStatistics();
+    assertEquals(3, cut.count());
+    assertEquals(2, result.size());
+
+    assertEquals(2, result.get(0).getId());
+    assertEquals(2, result.get(0).getRatings());
+    assertEquals(new BigDecimal("3.00"), result.get(0).getAvg());
   }
 
   @Test
   void databaseShouldBeEmpty() {
+    assertEquals(0, cut.count());
   }
 }
