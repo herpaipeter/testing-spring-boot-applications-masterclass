@@ -21,14 +21,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(BookController.class)
 // see https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.7-Release-Notes#migrating-from-websecurityconfigureradapter-to-securityfilterchain
-@Import(WebSecurityConfig.class)
+//@Import(WebSecurityConfig.class)
 class BookControllerTest {
 
   @MockBean
   private BookManagementService bookManagementService;
 
-  @Autowired
-  private MockMvc mockMvc;
+//  @Autowired
+//  private MockMvc mockMvc;
 
   @Test
   void shouldGetEmptyArrayWhenNoBooksExists() throws Exception {
