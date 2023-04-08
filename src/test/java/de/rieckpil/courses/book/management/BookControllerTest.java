@@ -11,28 +11,31 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import java.util.List;
-
 import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(BookController.class)
-@Import(BookManagementService.class)
 // see https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.7-Release-Notes#migrating-from-websecurityconfigureradapter-to-securityfilterchain
-//@Import(WebSecurityConfig.class)
+@Import(WebSecurityConfig.class)
 class BookControllerTest {
 
   @MockBean
-  private BookRepository repository;
+  private BookManagementService bookManagementService;
 
-//  @Autowired
-//  private MockMvc mockMvc;
+  @Autowired
+  private MockMvc mockMvc;
 
   @Test
   void shouldGetEmptyArrayWhenNoBooksExists() throws Exception {
+    MvcResult mvcResult = this.mockMvc.perform(get("/api/books")
+        .header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON))
+      .andExpect(status().is(200))
+      .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+      .andExpect(jsonPath("$.size()", is(0)))
+      .andDo(print())
+      .andReturn();
   }
 
   @Test
