@@ -73,10 +73,17 @@ class ReviewControllerTest {
 
   @Test
   void shouldNotReturnReviewStatisticsWhenUserIsUnauthenticated() throws Exception {
+    this.mockMvc
+      .perform(get("/api/books/reviews/statistics"))
+      .andExpect(status().isUnauthorized());
   }
 
   @Test
+  @WithMockUser(username = "duke")
   void shouldReturnReviewStatisticsWhenUserIsAuthenticated() throws Exception {
+    this.mockMvc
+      .perform(get("/api/books/reviews/statistics"))
+      .andExpect(status().isOk());
   }
 
   @Test
